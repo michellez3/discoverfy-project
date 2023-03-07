@@ -1,8 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import AnalyzeTracks from "./AnalyzeTracks";
+import Dashboard from "./Dashboard";
 
 function App() {
   const CLIENT_ID = "b9c0b9aee602418f98b74021553b0180";
@@ -43,14 +46,28 @@ function App() {
           {!token ? (
             <a
               href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+              class="btn btn-outline-secondary"
+              role="button"
             >
               Login to Spotify
             </a>
           ) : (
-            <button onClick={logout}>Logout</button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              onClick={logout}
+            >
+              Logout
+            </button>
           )}
         </div>
-        <Button variant="danger">Analyze Tracks</Button>
+        <h1 style={{ fontSize: 100, color: "#D8F8FF" }}>discoverfy </h1>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="analyzeTracks" element={<AnalyzeTracks />} />
+          <Route path="dashboard" element={<Dashboard />} />
+        </Routes>
       </header>
     </div>
   );
