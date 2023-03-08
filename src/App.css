@@ -44,8 +44,17 @@
   top:10px;
   right: 10px;
 }
+.topLeftcorner{
+  position:absolute;
+  top:10px;
+  left: 10px;
+}
 
 h1 {
   font-family: 'Roboto', sans-serif;
   font-size: 50px;
+}
+
+.row-padding {
+  padding-top: 20px;
 }
