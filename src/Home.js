@@ -1,40 +1,28 @@
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import PropTypes from "prop-types";
 import axios from "axios";
-import { useState } from "react";
 
-function Home(props) {
+function Home({ token, tracks, setTracks }) {
   // FETCH DATA (TOP TRACKS) + NAVIGATE TO ANALYZETRACKS:
-  //const [tracks, setTracks] = useState([]);
   const navigate = useNavigate();
 
   const fetchTracks = async (e) => {
-    console.log(props.token);
+    console.log(token);
     e.preventDefault();
     const { data } = await axios.get(
       "https://api.spotify.com/v1/me/top/tracks",
       {
         headers: {
-          Authorization: `Bearer ${props.token}`,
+          Authorization: `Bearer ${token}`,
         },
         params: {
           limit: 10,
         },
       }
     );
-    console.log(data.items);
-    //setTracks(data.items);
-    navigate("/analyzeTracks", { state: data.items });
+    setTracks(data.items);
+    navigate("/analyzeTracks");
   };
-
-  // //BUTTON CLICK ACTIONS:
-  // const navigate = useNavigate(); //necessary because of the component change during the button click
-
-  // const buttonClick = async () => {
-  //   await fetchTracks();
-  //   navigate.push("/analyzeTracks");
-  // };
 
   return (
     <div>
@@ -48,5 +36,11 @@ function Home(props) {
     </div>
   );
 }
+
+Home.propTypes = {
+  token: PropTypes.string,
+  tracks: PropTypes.array,
+  setTracks: PropTypes.func,
+};
 
 export default Home;

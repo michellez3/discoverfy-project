@@ -15,6 +15,7 @@ function App() {
   const RESPONSE_TYPE = "token";
   const SCOPE = "user-top-read";
   const [token, setToken] = useState("");
+  const [tracks, setTracks] = useState([]);
 
   // SET TOKEN FROM HASH:
   useEffect(() => {
@@ -72,8 +73,16 @@ function App() {
 
         <h1 style={{ fontSize: 100, color: "#D8F8FF" }}>discoverfy </h1>
         <Routes>
-          <Route path="/" element={<Home token={token} />} />
-          <Route path="/analyzeTracks" element={<AnalyzeTracks />} />
+          <Route
+            path="/"
+            element={
+              <Home token={token} tracks={tracks} setTracks={setTracks} />
+            }
+          />
+          <Route
+            path="/analyzeTracks"
+            element={<AnalyzeTracks tracks={tracks} setTracks={setTracks} />}
+          />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </header>

@@ -1,10 +1,8 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function AnalyzeTracks(props) {
-  const location = useLocation();
-  const tracks = location.state;
+function AnalyzeTracks({ tracks, setTracks }) {
   console.log(tracks);
   return (
     <div>
@@ -31,4 +29,8 @@ function AnalyzeTracks(props) {
   );
 }
 
+AnalyzeTracks.propTypes = {
+  tracks: PropTypes.array,
+  setTracks: PropTypes.func,
+};
 export default AnalyzeTracks;
