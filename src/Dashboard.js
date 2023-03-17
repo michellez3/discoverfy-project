@@ -3,39 +3,39 @@ import React from "react";
 function Dashboard() {
   return (
     <div>
-      <h1>(dashboard here)</h1>
+      <h4>learn more about your music taste</h4>
       <div className="container">
         <div className="row row-padding">
           <div className="col-sm-4">
             <button type="button" className="btn btn-outline-secondary btn-lg">
-              learn more...
+              top artists
             </button>
           </div>
           <div className="col-sm-4">
             <button type="button" className="btn btn-outline-secondary btn-lg">
-              learn more...
+              top albums
             </button>
           </div>
           <div className="col-sm-4">
             <button type="button" className="btn btn-outline-secondary btn-lg">
-              learn more...
+              top podcasts
             </button>
           </div>
         </div>
         <div className="row row-padding">
           <div class="col-sm-4">
             <button type="button" className="btn btn-outline-secondary btn-lg">
-              learn more...
+              top audiobooks
             </button>
           </div>
           <div className="col-sm-4">
             <button type="button" className="btn btn-outline-secondary btn-lg">
-              learn more...
+              recommendations
             </button>
           </div>
           <div className="col-sm-4">
             <button type="button" className="btn btn-outline-secondary btn-lg">
-              learn more...
+              find local artists
             </button>
           </div>
         </div>

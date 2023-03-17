@@ -6,12 +6,11 @@ import { Outlet, Link } from "react-router-dom";
 import Home from "./Home";
 import AnalyzeTracks from "./AnalyzeTracks";
 import Dashboard from "./Dashboard";
-require("dotenv").config();
+import axios from "axios";
 
 function App() {
-  const CLIENT_ID = process.env.CLIENT_ID;
-  const CLIENT_SECRET = process.env.CLIENT_SECRET;
-  const REDIRECT_URI = process.env.REDIRECT_URI;
+  const CLIENT_ID = "b9c0b9aee602418f98b74021553b0180";
+  const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const [token, setToken] = useState("");
@@ -39,6 +38,22 @@ function App() {
   const logout = () => {
     setToken("");
     window.localStorage.removeItem("token");
+  };
+
+  const searchArtists = async (e) => {
+    e.preventDefault();
+    const { data } = await axios.get("https://api.spotify.com/v1/search", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        q: searchKey,
+        type: "artist",
+      },
+    });
+
+    setArtists(data.artists.items);
+    console.log(data);
   };
 
   return (
@@ -69,7 +84,12 @@ function App() {
               Logout
             </button>
           )}
+          {/* <form onSubmit={searchArtists}>
+            <input type="text" onChange={(e) => setSearchKey(e.target.value)} />
+            <button type={"submit"}>Search</button>
+          </form> */}
         </div>
+
         <h1 style={{ fontSize: 100, color: "#D8F8FF" }}>discoverfy </h1>
         <Routes>
           <Route path="/" element={<Home token={token} />} />
