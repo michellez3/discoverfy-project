@@ -58,3 +58,8 @@ h1 {
 .row-padding {
   padding-top: 20px;
 }
+
+img {
+  float: right;
+  padding-left: 30px;
+}

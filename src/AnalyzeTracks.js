@@ -12,10 +12,18 @@ function AnalyzeTracks({ tracks, setTracks }) {
           className="card-text font-size: 12px"
           style={{ padding: "12px", textAlign: "left" }}
         >
-          #1 - {tracks[0].name}
-          <br></br> #2 - {tracks[1].name} <br></br> #3 - {tracks[2].name}
-          <br></br>
-          #4 - {tracks[3].name} <br></br>#5 - {tracks[4].name}
+          {tracks.map((data, index) => {
+            const { songName, artistName, albumCover } = data;
+            return (
+              <div rowIndex={index} key={songName}>
+                #{index + 1} - {songName}, {artistName}
+                <img src={albumCover} alt="album cover" />
+                <br></br>
+                <br></br>
+                <br></br>{" "}
+              </div>
+            );
+          })}
         </h5>
       </div>
       <br></br>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { songSelector } from "./selectors/Selector";
 
 function Home({ token, tracks, setTracks }) {
   // FETCH DATA (TOP TRACKS) + NAVIGATE TO ANALYZETRACKS:
@@ -20,7 +21,8 @@ function Home({ token, tracks, setTracks }) {
         },
       }
     );
-    setTracks(data.items);
+    const songData = songSelector(data);
+    setTracks(songData);
     navigate("/analyzeTracks");
   };
 
