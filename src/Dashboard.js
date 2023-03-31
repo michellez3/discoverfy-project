@@ -10,6 +10,7 @@ function Dashboard({ token, artists, setArtists }) {
   const navigate = useNavigate();
 
   const fetchArtists = async (e) => {
+    e.preventDefault();
     const { data } = await axios.get(
       "https://api.spotify.com/v1/me/top/artists",
       {

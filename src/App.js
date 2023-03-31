@@ -97,8 +97,7 @@ function App() {
           />
           <Route
             path="/topArtists"
-            artists={artists}
-            element={<TopArtists />}
+            element={<TopArtists artists={artists} setArtists={setArtists} />}
           />
         </Routes>
       </header>
