@@ -10,3 +10,13 @@ export const songSelector = createSelector(dataSelector, (tableData) => {
   }));
   return result;
 });
+
+export const artistSelector = createSelector(dataSelector, (tableData) => {
+  const result = tableData.map((item) => ({
+    artistName: item?.name,
+    image: item?.images[2]?.url,
+    url: item?.external_urls?.spotify,
+    genres: item?.genres,
+  }));
+  return result;
+});

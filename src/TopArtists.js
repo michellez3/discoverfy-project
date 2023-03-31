@@ -2,22 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-function AnalyzeTracks({ tracks, setTracks }) {
-  console.log(tracks);
+function TopArtists({ artists, setArtists }) {
+  console.log(artists);
   return (
     <div>
-      <h2>top tracks:</h2>
+      <h2>top artists:</h2>
       <div class="card" style={{ borderRadius: 0 }}>
         <h5
           className="card-text font-size: 12px"
           style={{ color: "black", padding: "12px", textAlign: "left" }}
         >
-          {tracks.map((data, index) => {
-            const { songName, artistName, albumCover } = data;
+          {artists.map((data, index) => {
+            const { artistName, image } = data;
             return (
-              <div rowIndex={index} key={songName}>
-                #{index + 1} - {songName}, {artistName}
-                <img src={albumCover} alt="album cover" />
+              <div rowIndex={index} key={artistName}>
+                #{index + 1} - {artistName}
+                <img src={image} alt="artist" />
                 <br></br>
                 <br></br>
                 <br></br>{" "}
@@ -29,15 +29,15 @@ function AnalyzeTracks({ tracks, setTracks }) {
       <br></br>
       <Link to="/dashboard">
         <button type="button" className="btn btn-outline-secondary btn-lg">
-          click for more features
+          return to dashboard
         </button>
       </Link>
     </div>
   );
 }
 
-AnalyzeTracks.propTypes = {
-  tracks: PropTypes.array,
-  setTracks: PropTypes.func,
+TopArtists.propTypes = {
+  artists: PropTypes.array,
+  setArtists: PropTypes.func,
 };
-export default AnalyzeTracks;
+export default TopArtists;

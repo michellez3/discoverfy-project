@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Home from "./Home";
 import AnalyzeTracks from "./AnalyzeTracks";
 import Dashboard from "./Dashboard";
+import TopArtists from "./TopArtists";
 
 function App() {
   // VARIABLES FOR AUTHENTICATION WITH SPOTIFY ACCOUNT:
@@ -16,6 +17,7 @@ function App() {
   const SCOPE = "user-top-read";
   const [token, setToken] = useState("");
   const [tracks, setTracks] = useState([]);
+  const [artists, setArtists] = useState([]);
 
   // SET TOKEN FROM HASH:
   useEffect(() => {
@@ -83,7 +85,21 @@ function App() {
             path="/analyzeTracks"
             element={<AnalyzeTracks tracks={tracks} setTracks={setTracks} />}
           />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <Dashboard
+                token={token}
+                artists={artists}
+                setArtists={setArtists}
+              />
+            }
+          />
+          <Route
+            path="/topArtists"
+            artists={artists}
+            element={<TopArtists />}
+          />
         </Routes>
       </header>
     </div>

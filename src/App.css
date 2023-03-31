@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,900;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Raleway:wght@300&display=swap');
 
 .App {
   text-align: center;
@@ -55,11 +56,32 @@ h1 {
   font-size: 50px;
 }
 
+h2 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 30px;
+  font-weight: thin;
+}
+
+h5 {
+  font-family: 'Raleway', sans-serif;
+  color: black;
+}
 .row-padding {
   padding-top: 20px;
 }
 
 img {
-  float: right;
-  padding-left: 30px;
+  float: left;
+  padding-right: 20px;
+}
+
+.card {
+  border-radius: 0;
+  background:linear-gradient(135deg, #e7cfff 0%,#71c9e6 100%);
+  padding: 25px;
+  margin: 20px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }

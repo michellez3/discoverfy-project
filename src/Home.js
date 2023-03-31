@@ -18,6 +18,7 @@ function Home({ token, tracks, setTracks }) {
         },
         params: {
           limit: 10,
+          time_range: "long_term",
         },
       }
     );
