@@ -7,7 +7,7 @@ function AnalyzeTracks({ tracks, setTracks }) {
   return (
     <div>
       <h2>top tracks:</h2>
-      <div class="card" style={{ borderRadius: 0 }}>
+      <div className="card" style={{ borderRadius: 0 }}>
         <h5
           className="card-text font-size: 12px"
           style={{ color: "black", padding: "12px", textAlign: "left" }}

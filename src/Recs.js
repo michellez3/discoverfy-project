@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-function TopArtists({ artists, setArtists }) {
-  console.log(artists);
+function Recs({ recs, setRecs }) {
+  console.log(recs);
   return (
     <div>
       <h2>top artists:</h2>
@@ -22,7 +22,7 @@ function TopArtists({ artists, setArtists }) {
             textAlign: "left",
           }}
         >
-          {artists.map((data, index) => {
+          {recs.map((data, index) => {
             const { artistName, image } = data;
             return (
               <div rowIndex={index} key={artistName}>
@@ -50,8 +50,8 @@ function TopArtists({ artists, setArtists }) {
   );
 }
 
-TopArtists.propTypes = {
-  artists: PropTypes.array,
-  setArtists: PropTypes.func,
+Recs.propTypes = {
+  recs: PropTypes.array,
+  setRecs: PropTypes.func,
 };
-export default TopArtists;
+export default Recs;

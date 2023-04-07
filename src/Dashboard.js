@@ -5,7 +5,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-function Dashboard({ token, artists, setArtists }) {
+function Dashboard({ token, artists, setArtists, tracks, setTracks }) {
   // FETCH TOP ARTISTS + NAVIGATE:
   const navigate = useNavigate();
 
@@ -25,10 +25,51 @@ function Dashboard({ token, artists, setArtists }) {
     );
     const artistData = artistSelector(data);
     setArtists(artistData);
-    console.log(artistData);
-    console.log(token);
-    console.log("here");
     navigate("/topArtists");
+  };
+
+  // FETCH RECS + NAVIGATE:
+  const fetchRecs = async (e) => {
+    const ArtistIds = [];
+    const Genres = [];
+    console.log("ARTISTS DATA", artists);
+    artists.map((data, index) => {
+      const { artistId, genre } = data;
+      ArtistIds.push(artistId);
+      Genres.push(genre);
+      return ArtistIds;
+    });
+    ArtistIds.splice(5, 5);
+    Genres.splice(5, 5);
+
+    const SongIds = [];
+    tracks.map((data, index) => {
+      const { songId } = data;
+      SongIds.push(songId);
+      return SongIds;
+    });
+    SongIds.splice(5, 5);
+
+    console.log("ARTISTS", ArtistIds);
+    console.log("TRACKS", SongIds);
+    console.log("GENRES", Genres);
+
+    e.preventDefault();
+    const { data } = await axios.get(
+      "https://api.spotify.com/v1/recommendations",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          seed_artists: ArtistIds[0],
+          seed_genres: Genres[0],
+          seed_tracks: SongIds[0],
+        },
+      }
+    );
+
+    navigate("/recs");
   };
 
   return (
@@ -54,8 +95,9 @@ function Dashboard({ token, artists, setArtists }) {
               type="button"
               className="btn btn-outline-secondary btn-lg"
               style={{ width: "100%" }}
+              onClick={fetchRecs}
             >
-              top albums
+              song recs
             </button>
           </div>
           <div className="col-sm-4">
@@ -64,7 +106,7 @@ function Dashboard({ token, artists, setArtists }) {
               className="btn btn-outline-secondary btn-lg"
               style={{ width: "100%" }}
             >
-              top podcasts
+              song analysis
             </button>
           </div>
         </div>
@@ -84,7 +126,7 @@ function Dashboard({ token, artists, setArtists }) {
               className="btn btn-outline-secondary btn-lg"
               style={{ width: "100%" }}
             >
-              recommendations
+              top podcasts
             </button>
           </div>
           <div className="col-sm-4">
@@ -106,6 +148,8 @@ Dashboard.propTypes = {
   token: PropTypes.string,
   artists: PropTypes.array,
   setArtists: PropTypes.func,
+  tracks: PropTypes.array,
+  setTracks: PropTypes.func,
 };
 
 export default Dashboard;

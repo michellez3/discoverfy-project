@@ -7,6 +7,7 @@ import Home from "./Home";
 import AnalyzeTracks from "./AnalyzeTracks";
 import Dashboard from "./Dashboard";
 import TopArtists from "./TopArtists";
+import Recs from "./Recs";
 
 function App() {
   // VARIABLES FOR AUTHENTICATION WITH SPOTIFY ACCOUNT:
@@ -18,6 +19,7 @@ function App() {
   const [token, setToken] = useState("");
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
+  const [recs, setRecs] = useState([]);
 
   // SET TOKEN FROM HASH:
   useEffect(() => {
@@ -78,7 +80,13 @@ function App() {
           <Route
             path="/"
             element={
-              <Home token={token} tracks={tracks} setTracks={setTracks} />
+              <Home
+                token={token}
+                tracks={tracks}
+                setTracks={setTracks}
+                artists={artists}
+                setArtists={setArtists}
+              />
             }
           />
           <Route
@@ -92,12 +100,18 @@ function App() {
                 token={token}
                 artists={artists}
                 setArtists={setArtists}
+                tracks={tracks}
+                setTracks={setTracks}
               />
             }
           />
           <Route
             path="/topArtists"
             element={<TopArtists artists={artists} setArtists={setArtists} />}
+          />
+          <Route
+            path="/recs"
+            element={<Recs recs={recs} setRecs={setRecs} />}
           />
         </Routes>
       </header>
