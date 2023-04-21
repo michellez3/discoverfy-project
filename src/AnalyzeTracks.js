@@ -3,15 +3,11 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function AnalyzeTracks({ tracks, setTracks }) {
-  console.log(tracks);
   return (
     <div>
       <h2>top tracks:</h2>
       <div className="card" style={{ borderRadius: 0 }}>
-        <h5
-          className="card-text font-size: 12px"
-          style={{ color: "black", padding: "12px", textAlign: "left" }}
-        >
+        <h5 style={{ padding: "12px", textAlign: "left" }}>
           {tracks.map((data, index) => {
             const { songName, artistName, albumCover } = data;
             return (
@@ -26,12 +22,17 @@ function AnalyzeTracks({ tracks, setTracks }) {
           })}
         </h5>
       </div>
-      <br></br>
-      <Link to="/dashboard">
-        <button type="button" className="btn btn-outline-secondary btn-lg">
-          click for more features
-        </button>
-      </Link>
+      <center>
+        <Link to="/dashboard">
+          <button
+            type="button"
+            className="btn btn-outline-secondary btn-lg"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            more features
+          </button>
+        </Link>
+      </center>
     </div>
   );
 }

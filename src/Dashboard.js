@@ -1,11 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { artistSelector } from "./selectors/Selector";
+import { artistSelector, recSelector } from "./selectors/Selector";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-function Dashboard({ token, artists, setArtists, tracks, setTracks }) {
+function Dashboard({
+  token,
+  artists,
+  setArtists,
+  tracks,
+  setTracks,
+  recs,
+  setRecs,
+}) {
   // FETCH TOP ARTISTS + NAVIGATE:
   const navigate = useNavigate();
 
@@ -32,7 +40,7 @@ function Dashboard({ token, artists, setArtists, tracks, setTracks }) {
   const fetchRecs = async (e) => {
     const ArtistIds = [];
     const Genres = [];
-    console.log("ARTISTS DATA", artists);
+
     artists.map((data, index) => {
       const { artistId, genre } = data;
       ArtistIds.push(artistId);
@@ -50,10 +58,6 @@ function Dashboard({ token, artists, setArtists, tracks, setTracks }) {
     });
     SongIds.splice(5, 5);
 
-    console.log("ARTISTS", ArtistIds);
-    console.log("TRACKS", SongIds);
-    console.log("GENRES", Genres);
-
     e.preventDefault();
     const { data } = await axios.get(
       "https://api.spotify.com/v1/recommendations",
@@ -69,6 +73,11 @@ function Dashboard({ token, artists, setArtists, tracks, setTracks }) {
       }
     );
 
+    console.log("whole recs", data);
+    const recData = recSelector(data);
+    console.log("recData", recData);
+    setRecs(recData);
+    console.log("recs", recs);
     navigate("/recs");
   };
 
@@ -78,65 +87,53 @@ function Dashboard({ token, artists, setArtists, tracks, setTracks }) {
       <h2>learn more about your music taste</h2>
       <div className="container">
         <div className="row row-padding">
-          <div className="col-sm-4">
+          <div className="col-sm-6">
             <Link to="/topArtists">
               <button
                 type="button"
                 className="btn btn-outline-secondary btn-lg"
-                style={{ width: "100%" }}
+                style={{ fontFamily: "Poppins, sans-serif", width: "100%" }}
                 onClick={fetchArtists}
               >
                 top artists
               </button>
             </Link>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-6">
             <button
               type="button"
               className="btn btn-outline-secondary btn-lg"
-              style={{ width: "100%" }}
+              style={{ fontFamily: "Poppins, sans-serif", width: "100%" }}
               onClick={fetchRecs}
             >
               song recs
             </button>
           </div>
-          <div className="col-sm-4">
-            <button
-              type="button"
-              className="btn btn-outline-secondary btn-lg"
-              style={{ width: "100%" }}
-            >
-              song analysis
-            </button>
-          </div>
         </div>
+
         <div className="row row-padding">
-          <div className="col-sm-4">
-            <button
-              type="button"
-              className="btn btn-outline-secondary btn-lg"
-              style={{ width: "100%" }}
-            >
-              top audiobooks
-            </button>
+          <div className="col-sm-6">
+            <Link to="/audioFeatures">
+              <button
+                type="button"
+                className="btn btn-outline-secondary btn-lg"
+                style={{ fontFamily: "Poppins, sans-serif", width: "100%" }}
+              >
+                song analysis
+              </button>
+            </Link>
           </div>
-          <div className="col-sm-4">
-            <button
-              type="button"
-              className="btn btn-outline-secondary btn-lg"
-              style={{ width: "100%" }}
-            >
-              top podcasts
-            </button>
-          </div>
-          <div className="col-sm-4">
-            <button
-              type="button"
-              className="btn btn-outline-secondary btn-lg"
-              style={{ width: "100%" }}
-            >
-              find local artists
-            </button>
+
+          <div className="col-sm-6">
+            <Link to="/analyzeTracks">
+              <button
+                type="button"
+                className="btn btn-outline-secondary btn-lg"
+                style={{ fontFamily: "Poppins, sans-serif", width: "100%" }}
+              >
+                back to top tracks
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -150,6 +147,8 @@ Dashboard.propTypes = {
   setArtists: PropTypes.func,
   tracks: PropTypes.array,
   setTracks: PropTypes.func,
+  recs: PropTypes.array,
+  setRecs: PropTypes.func,
 };
 
 export default Dashboard;

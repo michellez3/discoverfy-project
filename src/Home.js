@@ -5,11 +5,10 @@ import { songSelector } from "./selectors/Selector";
 import { artistSelector } from "./selectors/Selector";
 
 function Home({ token, tracks, setTracks, artists, setArtists }) {
-  // FETCH DATA (TOP TRACKS) + NAVIGATE TO ANALYZETRACKS:
+  // FETCH DATA (TOP TRACKS)
   const navigate = useNavigate();
 
   const fetchTracks = async (e) => {
-    console.log(token);
     e.preventDefault();
     const { data } = await axios.get(
       "https://api.spotify.com/v1/me/top/tracks",
@@ -26,6 +25,7 @@ function Home({ token, tracks, setTracks, artists, setArtists }) {
     const songData = songSelector(data);
     setTracks(songData);
 
+    // FETCH DATA (TOP ARTISTS)
     const { data: artistResponse } = await axios.get(
       "https://api.spotify.com/v1/me/top/artists",
       {
@@ -41,6 +41,7 @@ function Home({ token, tracks, setTracks, artists, setArtists }) {
     const artistData = artistSelector(artistResponse);
     setArtists(artistData);
 
+    //NAVIGATE TO ANALYZETRACKS:
     navigate("/analyzeTracks");
   };
 
@@ -48,10 +49,11 @@ function Home({ token, tracks, setTracks, artists, setArtists }) {
     <div>
       <button
         type="button"
-        className="btn btn-outline-secondary btn-lg"
+        className="button-86"
+        role="button"
         onClick={fetchTracks}
       >
-        analyze tracks
+        top tracks
       </button>
     </div>
   );

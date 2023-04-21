@@ -8,6 +8,7 @@ import AnalyzeTracks from "./AnalyzeTracks";
 import Dashboard from "./Dashboard";
 import TopArtists from "./TopArtists";
 import Recs from "./Recs";
+import AudioFeatures from "./AudioFeatures";
 
 function App() {
   // VARIABLES FOR AUTHENTICATION WITH SPOTIFY ACCOUNT:
@@ -15,11 +16,13 @@ function App() {
   const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
-  const SCOPE = "user-top-read";
+  const SCOPE = "user-top-read playlist-modify-public playlist-modify-private";
   const [token, setToken] = useState("");
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
   const [recs, setRecs] = useState([]);
+  const [features, setFeatures] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // SET TOKEN FROM HASH:
   useEffect(() => {
@@ -50,7 +53,11 @@ function App() {
       <header className="App-header">
         <div className="topLeftcorner">
           <Link to="/">
-            <button type="button" className="btn btn-outline-secondary">
+            <button
+              type="button"
+              className="btn btn-outline-secondary btn-lg"
+              style={{ fontFamily: "Poppins, sans-serif" }}
+            >
               home
             </button>
           </Link>
@@ -61,21 +68,33 @@ function App() {
               href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}
               className="btn btn-outline-secondary"
               role="button"
+              className="btn btn-outline-secondary btn-lg"
+              style={{ fontFamily: "Poppins, sans-serif" }}
             >
-              Login to Spotify
+              login to spotify
             </a>
           ) : (
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-secondary btn-lg"
+              style={{ fontFamily: "Poppins, sans-serif" }}
               onClick={logout}
             >
-              Logout
+              logout
             </button>
           )}
         </div>
+        <br></br>
 
-        <h1 style={{ fontSize: 100, color: "#D8F8FF" }}>discoverfy </h1>
+        <h1
+          style={{
+            fontSize: 100,
+            color: "#D8F8FF",
+            marginTop: "20px !important",
+          }}
+        >
+          discoverfy{" "}
+        </h1>
         <Routes>
           <Route
             path="/"
@@ -102,6 +121,8 @@ function App() {
                 setArtists={setArtists}
                 tracks={tracks}
                 setTracks={setTracks}
+                recs={recs}
+                setRecs={setRecs}
               />
             }
           />
@@ -111,7 +132,19 @@ function App() {
           />
           <Route
             path="/recs"
-            element={<Recs recs={recs} setRecs={setRecs} />}
+            element={<Recs recs={recs} setRecs={setRecs} token={token} />}
+          />
+          <Route
+            path="audioFeatures"
+            element={
+              <AudioFeatures
+                features={features}
+                setFeatures={setFeatures}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                token={token}
+              />
+            }
           />
         </Routes>
       </header>

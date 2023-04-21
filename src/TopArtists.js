@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function TopArtists({ artists, setArtists }) {
-  console.log(artists);
   return (
     <div>
       <h2>top artists:</h2>
@@ -27,7 +26,7 @@ function TopArtists({ artists, setArtists }) {
             return (
               <div rowIndex={index} key={artistName}>
                 <img
-                  style={{ width: "20%", height: "20%" }}
+                  style={{ width: "19%", height: "19%" }}
                   src={image}
                   alt="artist"
                 />
@@ -40,12 +39,17 @@ function TopArtists({ artists, setArtists }) {
           })}
         </h5>
       </div>
-      <br></br>
       <Link to="/dashboard">
-        <button type="button" className="btn btn-outline-secondary btn-lg">
+        <button
+          type="button"
+          className="btn btn-outline-secondary btn-lg"
+          style={{ fontFamily: "Poppins, sans-serif" }}
+        >
           return to dashboard
         </button>
       </Link>
+      <br></br>
+      <br></br>
     </div>
   );
 }

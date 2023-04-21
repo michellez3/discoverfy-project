@@ -1,12 +1,66 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import "./App.css";
+import axios from "axios";
 
-function Recs({ recs, setRecs }) {
-  console.log(recs);
+function Recs({ recs, setRecs, token }) {
+  let userId = "";
+  //GET USER ID
+  fetch("https://api.spotify.com/v1/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      userId = data.id;
+      console.log(userId);
+    });
+
+  // // CREATE PLAYLIST
+  // const createPlaylist = async (e) => {
+  //   const { data } = await axios.post(
+  //     `https://api.spotify.com/v1/users/${userId}/playlists`,
+  //     {
+  //       name: "song recs!",
+  //       description: "from discoverfy.",
+  //       public: false,
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+  //   console.log("here");
+  //   getPlaylist();
+  //   addSongs();
+  // };
+
+  // //ADD SONGS TO PLAYLIST
+  // const addSongs = async (e) => {
+  //   const { data } = await axios.post(
+  //     `https://api.spotify.com/v1/playlists/${playlistId}/tracks``,
+  //     {
+  //       name: "song recs!",
+  //       description: "from discoverfy.",
+  //       public: false,
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+  //   console.log("here");
+  // };
+
   return (
     <div>
-      <h2>top artists:</h2>
+      <h2>song recs:</h2>
       <div
         class="card"
         style={{
@@ -23,15 +77,21 @@ function Recs({ recs, setRecs }) {
           }}
         >
           {recs.map((data, index) => {
-            const { artistName, image } = data;
+            const { songName, image, url } = data;
             return (
-              <div rowIndex={index} key={artistName}>
+              <div rowIndex={index} key={songName}>
                 <img
-                  style={{ width: "20%", height: "20%" }}
+                  style={{ width: "15%", height: "15%", objectFit: "cover" }}
                   src={image}
                   alt="artist"
                 />
-                #{index + 1} - {artistName}
+                <a
+                  href={url}
+                  className="recLink d-inline-block"
+                  target="_blank"
+                >
+                  #{index + 1} - {songName}
+                </a>
                 <br></br>
                 <br></br>
                 <br></br>{" "}
@@ -40,12 +100,24 @@ function Recs({ recs, setRecs }) {
           })}
         </h5>
       </div>
-      <br></br>
       <Link to="/dashboard">
-        <button type="button" className="btn btn-outline-secondary btn-lg">
+        <button
+          type="button"
+          className="btn btn-outline-secondary btn-lg"
+          style={{ fontFamily: "Poppins, sans-serif", marginRight: "20px" }}
+        >
           return to dashboard
         </button>
       </Link>
+
+      {/* <button
+        type="button"
+        className="btn btn-outline-secondary btn-lg"
+        style={{ fontFamily: "Poppins, sans-serif" }}
+        onClick={() => createPlaylist()}
+      >
+        create playlist
+      </button> */}
     </div>
   );
 }
